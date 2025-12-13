@@ -1,0 +1,1 @@
+/home/rude/.config/themes/current/theme/neovim.lua

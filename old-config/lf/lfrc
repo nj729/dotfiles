@@ -1,0 +1,179 @@
+
+# Basic Settings
+set hidden true
+set ignorecase true
+set icons true
+set drawbox
+set rulerfmt "%d  |%a  |%p  |\033[7;31m %m \033[0m  |\033[7;33m %c \033[0m  |\033[7;35m %s \033[0m  |\033[7;34m %f \033[0m  |%i/%t"
+set previewer ~/.config/lf/lf_kitty_preview
+set cleaner ~/.config/lf/lf_kitty_clean
+
+# Custom Functions
+cmd mkdir ${{
+  printf "Directory Name: "
+  read ans
+  mkdir $ans
+}}
+
+cmd mkfile ${{
+  printf "File Name: "
+  read ans
+  $EDITOR $ans
+}}
+
+cmd setwallpaper ${{
+    setwallpaper.sh "$f"
+}}
+
+# Archive bindings
+cmd extract ${{
+	clear; tput bold
+	set -f
+	printf "%s\n\t" "$fx"
+	printf "extract?[y/N]"
+	read ans
+	[ $ans = "y" ] && {
+		case $fx in
+			*.tar.bz2)   tar xjf $fx     ;;
+			*.tar.gz)    tar xzf $fx     ;;
+			*.bz2)       bunzip2 $fx     ;;
+			*.rar)       unrar e $fx     ;;
+			*.gz)        gunzip $fx      ;;
+			*.tar)       tar xf $fx      ;;
+			*.tbz2)      tar xjf $fx     ;;
+			*.tgz)       tar xzf $fx     ;;
+			*.zip)       unzip $fx       ;;
+			*.Z)         uncompress $fx  ;;
+			*.7z)        7z x $fx        ;;
+			*.tar.xz)    tar xf $fx      ;;
+		esac
+	}
+}}
+
+# Delete bindings
+cmd delete ${{
+	clear;tput bold
+	set -f
+	printf "%s\n\t" "$fx"
+	printf "delete? [y/N] : "
+	read ans
+	[ $ans = "y" ] && rm -rf -- $fx;notify-send " $fx Deleted."
+}}
+
+
+cmd moveto ${{
+	clear;tput bold
+	set -f
+	clear; echo "Move to where?"
+	dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
+	for x in $fx; do
+		eval mv -iv \"$x\" \"$dest\"
+	done &&
+	notify-send "   File(s) moved." "File(s) moved to $dest."
+}}
+
+cmd copyto ${{
+	clear;tput bold
+	set -f
+	clear; echo "Copy to where?"
+	dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
+	for x in $fx; do
+		eval cp -ivr \"$x\" \"$dest\"
+	done &&
+	notify-send "󱉥  File(s) copied." "File(s) copies to $dest."
+}}
+
+ cmd open &{{
+	case $(file --mime-type -Lb $f) in
+ 		text/*) lf -remote "send $id \$nvim \$fx";;
+    application/pdf|application/vnd.djvu|application/epub*) lf -remote "send $id \$zathura \$fx" ;;
+ 		*) xdg-open "$f"
+ 	esac
+ }}
+
+
+cmd on-select &{{
+    lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
+}}
+
+
+#fzf bindings
+
+cmd fzf_jump ${{
+    res="$(find . -maxdepth 1 | fzf --reverse --header='Jump to location')"
+    if [ -n "$res" ]; then
+        if [ -d "$res" ]; then
+            cmd="cd"
+        else
+            cmd="select"
+        fi
+        res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+        lf -remote "send $id $cmd \"$res\""
+    fi
+}}
+map <c-j> :fzf_jump
+
+cmd fzf_search ${{
+    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+    res="$(
+        FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+            fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+            --ansi --layout=reverse --header 'Search in files' \
+            | cut -d':' -f1 | sed 's/\\/\\\\/g;s/"/\\"/g'
+    )"
+    [ -n "$res" ] && lf -remote "send $id select \"$res\""
+}}
+map <c-f> :fzf_search
+
+#cmd z-jump ${{
+#  ZLUA_SCRIPT="$ZDOTDIR/plugins/z.lua/z.lua"
+#  lf -remote "send ${id} cd \"$($ZLUA_SCRIPT -e $@ | sed 's/\\/\\\\/g;s/"/\\"/g')\""
+#}}
+#map Z push :z-jump<space>-I<space>
+#map zb push :z-jump<space>-b<space>
+#map zz push :z-jump<space>
+
+cmd edit-config ${{
+    $EDITOR ~/.config/lf/lfrc
+    lf -remote "send $id source ~/.config/lf/lfrc"
+}}
+
+# Bindings
+#map c
+map d
+map m
+map e
+
+map nv $nvim "$f"
+map cf $dotbare fadd -f
+
+map ex extract
+#map ae $wine "$f"
+map R edit-config
+
+
+# Basic Functions
+map . set hidden!
+map D delete
+map u $trashy restore -r 0
+map p paste
+map x cut
+map y copy
+map Y copyto
+map M moveto
+map <enter> open
+map R reload
+map a mkfile
+map md mkdir
+map bg setwallpaper
+map C clear
+
+# Movement
+map gc cd ~/.config
+#map gD cd ~/documents
+map gd cd ~/Downloads
+#map gp cd ~/pictures
+#map gr cd ~/repos
+#map gv cd ~/videos
+map gl cd ~/.local/bin
+#map gt cd ~/.local/share/Trash/files

@@ -1,0 +1,13 @@
+
+# Paru install
+
+sudo pacman -S --needed base-devel
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si
+
+# Xorg with qtile
+alacritty amd-ucode catppuccin-gtk-theme-mocha catppuccin-cursors-mocha dunst firefox fzf git gvfs lf librewolf lx-appearance man-db neofetch neovim network-manager network-manager-applet nodejs npm nsxiv ntfs-3g papirus-folders-catppuccin-git papirus-icon-theme paru pavucontrol pcmanfm-gtk3 python-psutil qtile qtile-extras rofi rose-pine-gtk-theme-full ttf-jetbrains-mono-nerd unzip ufw xorg-server xorg-xinit xorg-xsetroot xorg-xrandr youtube-music-bin zsh
+
+
+

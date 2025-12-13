@@ -1,0 +1,1 @@
+/home/rude/.config/nvim/lua/plugins

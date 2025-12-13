@@ -1,0 +1,10 @@
+# Changes require a restart to take effect.
+
+# Ensure bins are in the path
+export PATH=$HOME/.local/share/bin:$PATH
+
+# Set default terminal and editor
+source ~/.config/uwsm/default
+
+# Activate mise if present on the system
+cmd-present mise && eval "$(mise activate zsh)"

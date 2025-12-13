@@ -1,0 +1,41 @@
+import = [
+  "~/.config/alacritty/rose-pine.toml"
+]
+
+live_config_reload = true
+
+[env]
+TERM="xterm-256color"
+
+[window]
+decorations="None"
+opacity=0.7
+blur=false
+
+
+[scrolling]
+history=10000
+multiplier=10
+
+[font]
+normal = { family = "CaskaydiaCove NF", style = "Regular" }
+bold = { family = "CaskaydiaCove NF", style = "Bold" }
+italic = { family = "CaskaydiaCove NF", style = "Italic" }
+bold_italic = { family = "CaskaydiaCove NF", style = "Bold Italic" }
+ size=12.0
+offset={x=0, y=3}
+glyph_offset={x=0,y=0}
+
+[terminal]
+osc52="CopyPaste"
+
+[mouse]
+hide_when_typing=true
+
+[colors]
+draw_bold_text_with_bright_colors=true
+
+[selection]
+save_to_clipboard=true
+
+
