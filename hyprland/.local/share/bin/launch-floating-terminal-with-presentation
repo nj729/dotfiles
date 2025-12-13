@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cmd="$*"
+exec launch-tui bash -c "show-logo; $cmd; show-done"

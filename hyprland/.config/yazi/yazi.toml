@@ -1,0 +1,14 @@
+[mgr]
+show_hidden = true
+sort_dir_first = true
+linemode = "size"
+scroll_offset = 5
+prepend_keymap = [
+    { on = "T", run = "shell --orphan --confirm kitty", desc = "Open terminal at current dir" },
+]
+
+
+[preview]
+wrap = "yes"
+tab_size = 4
+

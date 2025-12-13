@@ -1,0 +1,18 @@
+[manager]
+show_hidden = true
+sort_dir_first = true
+linemode = "size"
+scroll_offset = 5
+
+[preview]
+wrap = true
+tab_size = 4
+
+[opener]
+edit = [
+  { run = "nvim {file}", desc = "Neovim", block = true },
+]
+
+[plugin]
+prepend_previewers = ["git","kitty-theme"]
+

@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# Icons
+ICON_PAC=""
+ICON_AUR=""
+ICON_OK=""
+ICON_UP=""
+
+# --- helper functions -----------------------------------------------------
+
+get_updates() {
+  PAC=$(yay -Qu 2>/dev/null | wc -l)
+
+  # AUR: yay or yay
+  if command -v yay &>/dev/null; then
+    AUR=$(yay -Qua 2>/dev/null | wc -l)
+  elif command -v yay &>/dev/null; then
+    AUR=$(yay -Qua 2>/dev/null | wc -l)
+  else
+    AUR=0
+  fi
+
+  TOTAL=$((PAC + AUR))
+}
+
+list_updates() {
+  get_updates
+  notify-send "System Updates" \
+    "Pacman:$PAC\n$(checkupdates 2>/dev/null)\nAUR:$AUR\n$(yay -Qua 2>/dev/null)"
+}
+
+update_system() {
+  notify-send "Updating System..."
+  # Launch terminal and update interactively
+  launch-tui bash -c "yay -Syu; echo; read -p 'Press Enter to close...'"
+  restart-waybar
+  exit 0
+}
+
+# --- argument handling ----------------------------------------------------
+
+case "$1" in
+--list)
+  list_updates
+  exit 0
+  ;;
+--update)
+  update_system
+  exit 0
+  ;;
+esac
+
+# --- default execution (Waybar display) ----------------------------------
+
+get_updates
+
+if [ "$TOTAL" -eq 0 ]; then
+  text="$ICON_OK  0"
+  tooltip="System up to date"
+  color="#a8ff9f"
+else
+  text="$ICON_UP  $TOTAL"
+  tooltip="$ICON_PAC Pacman: $PAC\n$ICON_AUR AUR: $AUR"
+
+  if [ "$TOTAL" -gt 50 ]; then
+    color="#ff4d4d" # critical
+  elif [ "$TOTAL" -gt 10 ]; then
+    color="#ffcc00" # warning
+  else
+    color="#ffee88" # mild
+  fi
+fi
+
+printf '{"text":"%s","tooltip":"%s","class":"updates","percentage":%d,"alt":%d,"color":"%s"}' \
+  "$text" "$tooltip" "$TOTAL" "$TOTAL" "$color"

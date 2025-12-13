@@ -1,0 +1,18 @@
+[Added Associations]
+application/x-shellscript=nvim.desktop;
+text/css=nvim.desktop;
+text/markdown=nvim.desktop;
+application/pdf=librewolf.desktop;org.pwmt.zathura-pdf-poppler.desktop;
+text/x-csrc=nvim.desktop;
+inode/directory=kitty-open.desktop;yazi.desktop;lf.desktop;
+
+[Default Applications]
+text/css=nvim.desktop
+text/markdown=nvim.desktop
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop
+text/x-csrc=nvim.desktop
+text/html=chromium.desktop
+x-scheme-handler/http=chromium.desktop
+x-scheme-handler/https=chromium.desktop
+x-scheme-handler/about=chromium.desktop
+x-scheme-handler/unknown=chromium.desktop

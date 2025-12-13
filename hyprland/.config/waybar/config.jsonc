@@ -1,0 +1,252 @@
+// =============================
+// === Waybar modules config ===
+// =============================
+{
+  "reload_style_on_change": true,
+  "layer": "background",
+  // "width": 990,
+  "spacing": 0,
+  "modules-left": [
+    "custom/menu",
+    "custom/separator",
+    "hyprland/workspaces",
+    "custom/separator",
+    "idle_inhibitor",
+    "custom/separator",
+    "custom/updates",
+    "custom/separator",
+    "hyprland/window"
+  ],
+  "modules-center": [
+  ],
+  "modules-right": [
+    "group/tray-expander",
+    "custom/separator",
+    "temperature",
+    "custom/separator",
+    "pulseaudio",
+    "backlight",
+    "custom/separator",
+    "network",
+    "battery",
+    "power-profiles-daemon",
+    "custom/separator",
+    "clock",
+    "custom/separator",
+    "custom/power"
+  ],
+  // Modules configuration
+  "hyprland/workspaces": {
+      "disable-scroll": false,
+      "format": "{icon}",
+      "format-icons": {
+        "default": "",
+        "1": "WWW",
+        "2": "TER",
+        "3": "DEV",
+        "4": "SDY",
+        "5": "MDA",
+        "6": "GMS",
+        "7": "DOC",
+        "8": "GFX",
+        "9": "MSC",
+        //"urgent": "",
+        //"active": "",
+     },
+     "persistent-workspaces": {
+           "*": 5
+    },
+    "on-scroll-up": "hyprctl dispatch workspace e-1",
+    "on-scroll-down": "hyprctl dispatch workspace e+1"
+  },
+  "hyprland/window": {
+    "format": " {title}",
+    "max-length": 40,
+    "separate-outputs": false,
+    "rewrite": {
+      "(.*) ": " ",
+      "(.*)Mozilla Firefox": " Firefox",
+      "(.*) ~(.*)": "󰆍 Kitty",
+      "(.*)Kitty@ArchLinux": "󰆍 Kitty",
+      // "(.*)Alacritty@ArchLinux": "󰆍 Alacritty",
+      "(.*) - Nvim": " Neovim",
+      "(.*)Discord": "󰙯 Discord"
+    },
+    "tooltip": false
+  },
+  "idle_inhibitor": {
+      "format": "{icon} ",
+      "format-icons": {
+          "activated": "",
+          "deactivated": ""
+      },
+    "start-deactivated": "true",
+      "on-click": "toggle-idle"
+  },
+  "group/tray-expander": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "tray-group-item"
+    },
+    "modules": [
+      "custom/expand-icon",
+      "tray"
+    ]
+  },
+  "custom/expand-icon": {
+    "format": " ",
+    "tooltip": false
+  },
+  "tray": {
+    "icon-size": 16,
+    "spacing": 13
+  },
+  "clock": {
+    "format": "{:L%A %I:%M %p}",
+    "format-alt": "{:%d/%m/%y}",
+    "tooltip": false,
+    "on-click-right": "launch-floating-terminal-with-presentation tz-select"
+  },
+ 
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-discharging": "{icon}",
+    "format-charging": "{icon}",
+    "format-plugged": " ",
+    "format-icons": {
+      "charging": ["󰢜 ", "󰂆 ", "󰂇 ", "󰂈 ", "󰢝 ", "󰂉 ", "󰢞 ", "󰂊 ", "󰂋 ", "󰂅 "],
+      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+    "format-full": "󰂅",
+    "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
+    "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
+    "interval": 5,
+    "on-click": "menu power",
+    "states": {
+      "warning": 20,
+      "critical": 10
+    }
+  },
+  "custom/updates": {
+    "exec": "system-updates-waybar",
+    "on-click": "system-updates-waybar --update",
+    "on-click-right": "system-updates-waybar --list",
+    "interval": 21600,
+    "return-type": "json",
+    "tooltip": true
+  },
+  "network": {
+    "format": "{icon}",
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰀂 ",
+    "tooltip-format": "󰀂 ",
+    "format-linked": "󰀂 ",
+    "format-disconnected": "󰤮 ",
+    "tooltip": true, 
+    "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click": "launch-wifi",
+    "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤥 ", "󰤨 "]
+  },
+  "pulseaudio": {
+    "scroll-step": 5,
+    "format": "{icon}  {volume}%",
+    "format-bluetooth": "{icon}  {volume}%",
+    "format-bluetooth-muted": "{icon}  0%",
+    "format-muted": "󰝟 0%",
+    "format-source": " {volume}%",
+    "format-source-muted": " ",
+    "format-icons": {
+        "headphone": " ",
+        "hands-free": "",
+        "headset": "",
+        "phone": " ",
+        "portable": " ",
+        "car": " ",
+        "default": ["", "", " "]
+    },
+    "on-click": "pamixer --toggle-mute",
+    "on-click-right": "launch-or-focus-tui wiremix -v output",
+    "tooltip-format": "{volume}%",
+    "tooltip": false
+  },
+   "bluetooth": {
+    "format": "",
+    "format-disabled": "󰂲",
+    "format-connected": "󰂱",
+    "format-no-controller": "",
+    "tooltip-format": "Devices connected: {num_connections}",
+    "on-click": "launch-bluetooth"
+  },
+  "custom/notification": {
+      "tooltip": false,
+      "format": "{icon} ",
+      "format-icons": {
+        "notification": "",
+        "none": "",
+        "dnd-notification": "",
+        "dnd-none": "",
+        "inhibited-notification": "",
+        "inhibited-none": "",
+        "dnd-inhibited-notification": "",
+        "dnd-inhibited-none": ""
+      },        "return-type": "json",
+      "exec-if": "which swaync-client",
+      "exec": "swaync-client -swb",
+      "escape": true,
+      "on-click": "swaync-client -t -sw",
+      "on-click-right": "swaync-client -d -sw"
+  },
+  "custom/separator": {
+    "format": "|",
+    "tooltip": false
+  }, 
+  "temperature": {
+		"critical-threshold": 80,
+    "thermal-zone": 1,
+    "hwmon-path": "/sys/class/hwmon/hwmon2/temp3_input",
+		"interval": 5,
+		"format": "{icon}  {temperatureC}°",
+		"format-icons": [
+			"",
+			"",
+			"",
+			"",
+			""
+		],
+		"tooltip": true
+	},
+  "cpu": {
+    "format": "  {usage}%",
+    "on-click": "launch-or-focus-tui btop",
+    "tooltip": false
+  },
+  "memory": {
+    "format": "  {}%",
+    "on-click": "xdg-terminal-exec -e btop"
+  },
+  "custom/menu": {
+    "format": "",
+    "on-click": "menu",
+    "on-click-right": "xdg-terminal-exec",
+    "tooltip": false
+  },
+  "custom/power": {
+    "format": "",
+    "on-click": "menu system",
+    "tooltip": false
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "󰾅",
+      "performance": "󰓅",
+      "balanced": "󰾅",
+      "power-saver": "󰾆"
+    }
+  }
+}

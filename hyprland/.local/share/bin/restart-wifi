@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo -e "Unblocking wifi...\n"
+rfkill unblock wifi
+rfkill list wifi
+update_system() {
+  notify-send "Updating System..."
+  # Launch terminal and update interactively
+  launch-tui bash -c "yay -Syu; echo; read -p 'Press Enter to close...'"
+  exit 0
+}

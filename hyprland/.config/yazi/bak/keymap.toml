@@ -1,0 +1,50 @@
+
+[keymap.manager]
+# Navigation
+j = "cursor_down"
+k = "cursor_up"
+h = "go_parent"
+l = "open"
+
+# Fast movement
+J = "jump_down"
+K = "jump_up"
+gg = "goto_first"
+G = "goto_last"
+
+# Tab-like behavior
+"tn" = "tab_new"
+"tc" = "tab_close"
+"to" = "tab_only"
+"tl" = "tab_next"
+"th" = "tab_prev"
+
+# Hidden files toggle
+"." = "toggle_hidden"
+
+# Sorting
+"ss" = "sort_by_size"
+"st" = "sort_by_mtime"
+"sa" = "sort_by_name"
+
+# File operations
+yy = "copy"
+dd = "cut"
+pp = "paste"
+rm = "remove"
+
+# Create
+"a" = "create"
+"A" = "create_dir"
+
+# Rename
+r = "rename"
+
+# Git
+"gs" = "git_status"
+"gd" = "git_diff"
+
+# Search
+"/" = "search"
+"n" = "search_next"
+"N" = "search_prev"
