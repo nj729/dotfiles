@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+THEME="$HOME/.config/themes/current/theme/tmux"
+
+[[ -f "$THEME" ]] || exit 0
+# shellcheck disable=SC1090
+source "$THEME"
+
+# Nerdfont characters
+TRIANGLE_OPEN="#(printf '\uE0B2')"
+TRIANGLE_CLOSE="#(printf '\uE0B0')"
+LEFT_SEP="#(printf '\ue0bc')"       # Full diagonal left separator
+RIGHT_SEP="#(printf '\ue0ba')"      # Full diagonal right separator
+THIN_LEFT_SEP="#(printf '\ue0bd')"  # Thin diagonal left separator
+THIN_RIGHT_SEP="#(printf '\ue0bb')" # Thin diagonal right separator
+THIN_VERTICAL_SEP="#(printf '\u23fd')"
+
+# ── base bar ─────────────────────────────────────────
+tmux set -g status-style "bg=$black,fg=$fg"
+
+# Status bar left (session name)
+tmux set-option -g status-left "#[bg=${blue},fg=${black},bold] #S #[fg=${blue},bg=default]${TRIANGLE_CLOSE}"
+
+# Status bar right (hostname)
+tmux set-option -g status-right "\
+#[fg=${blue},bg=default]${TRIANGLE_OPEN}\
+#[bg=${blue},fg=${black}] #(whoami)@#H \
+"
+# Window status format (for inactive windows)
+tmux set-window-option -g window-status-format "#[fg=$bg,bg=${gray}]${LEFT_SEP}#[fg=$fg,bg=${gray},bold] #I ${THIN_RIGHT_SEP} #W #[fg=$bg,bg=${gray}]${RIGHT_SEP}"
+
+# Current window status format (for active window)
+tmux set-window-option -g window-status-current-format "#[fg=$bg,bg=${blue}]${LEFT_SEP}#[fg=$bg,bg=${blue},bold] #I ${THIN_RIGHT_SEP} #W #[fg=$bg,bg=${blue}]${RIGHT_SEP}"
+
+tmux set-option -g window-status-separator ""
+
+# ── activity highlight ──────────────────────────────
+tmux set -g window-status-activity-style "bg=$orange,fg=$bg,bold"
+
+# ── messages / copy-mode ────────────────────────────
+tmux set -g message-style "bg=$black4,fg=$fg"
+tmux set -g mode-style "bg=$cyan,fg=$bg"

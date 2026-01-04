@@ -36,3 +36,7 @@ makoctl reload
 # Change gnome, browser, vscode, cursor themes
 theme-set-gnome
 theme-set-browser
+theme-set-tmux
+
+# Call hook on theme set
+hook theme-set "$THEME_NAME"

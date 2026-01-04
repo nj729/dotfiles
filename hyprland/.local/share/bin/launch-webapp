@@ -8,11 +8,8 @@ google-chrome* | brave-browser* | microsoft-edge* | opera* | vivaldi* | helium*)
 *) browser="chromium.desktop" ;;
 esac
 
-if [[ $browser=="chromium.desktop" ]]; then
-  exec setsid uwsm-app -- $(sed -n 's/^Exec=\([^ ]*\).*/\1/p' {~/.local,~/.nix-profile,/usr}/share/applications/$browser 2>/dev/null | head -1) --app="$1" "${@:2}" --user-data-dir="$HOME/.config/chromium" --profile-directory=$profile
+if [[ $browser=="helium-browser.desktop" ]]; then
+  exec setsid uwsm-app -- $(sed -n 's/^Exec=\([^ ]*\).*/\1/p' {~/.local,~/.nix-profile,/usr}/share/applications/$browser 2>/dev/null | head -1) --app="$1" "${@:2}" --user-data-dir="$HOME/.config/net.imput.helium" --profile-directory=$profile
 else
-  if [[ $browser=="helium-browser.desktop" ]]; then
-    exec setsid uwsm-app -- $(sed -n 's/^Exec=\([^ ]*\).*/\1/p' {~/.local,~/.nix-profile,/usr}/share/applications/$browser 2>/dev/null | head -1) --app="$1" "${@:2}" --user-data-dir="$HOME/.config/net.imput.helium" --profile-directory=$profile
-  fi
   exec setsid uwsm-app -- $(sed -n 's/^Exec=\([^ ]*\).*/\1/p' {~/.local,~/.nix-profile,/usr}/share/applications/$browser 2>/dev/null | head -1) --app="$1" "${@:2}"
 fi

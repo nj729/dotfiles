@@ -171,6 +171,7 @@ return {
     event = "VeryLazy",
     opts = function()
       return {
+        globalstatus = true,
         --[[add your custom lualine config here]]
       }
     end,

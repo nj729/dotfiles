@@ -5,15 +5,15 @@
 # [❯](bold #ce7e00) """
 
 format = """
-$os $username(blue)@$hostname $sudo
-[┣❯](bold red) $directory
-[╰──❯ ](bold green)
-"""
+$os $username(blue)@$hostname $directory 
+[❯](bold red) $sudo """
 
-right_format = """$shlvl$cmd_duration$aws$azure$buf$bun$c$cmake$conda$container$crystal$daml$dart$deno$docker_context$dotnet
+right_format = """
+$shlvl$cmd_duration$aws$azure$buf$bun$c$cmake$conda$container$crystal$daml$dart$deno$docker_context$dotnet
 $elixir$elm$erlang$gcloud$golang$git_branch$git_commit$git_state$git_matrics$git_status$haskell$helm$java$julia$kotlin$kubernetes
 $lua$nvim$nix_shell$nodejs$ocaml$openstack$package$perl$php$pulumi$purescript$python$rlang$raku$red$ruby$rust$scala$singularity
-$spack$swift$terraform$vagrant$vlang$vcsh$zig$character"""
+$spack$swift$terraform$vagrant$vlang$vcsh$zig$character
+"""
 
 [username]
 disabled = false

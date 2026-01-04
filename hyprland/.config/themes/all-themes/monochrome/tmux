@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+bg="#0f0f0f"
+fg="#e5e5e5"
+black="#000000"
+black4="#2b2b2b"
+gray="#7a7a7a"
+red="#ffffff"
+pink="#ffffff"
+green="#cccccc"
+yellow="#bfbfbf"
+blue="#d9d9d9"
+magenta="#ffffff"
+cyan="#e0e0e0"
+orange="#f0f0f0"

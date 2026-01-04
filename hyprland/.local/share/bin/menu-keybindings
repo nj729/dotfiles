@@ -114,7 +114,12 @@ dynamic_bindings() {
 
 # Hardcoded bindings, like the copy-url extension and such
 static_bindings() {
-  echo "SHIFT ALT,L,Copy URL from Web App,extension,copy-url"
+  echo "CTRL,F,zsh Search files/directories,search,files"
+  echo "CTRL,L,zsh Search Git Log,search,git-log"
+  echo "CTRL,R,zsh Search command history,search,command-history"
+  echo "CTRL,T,zsh Search files in current directory,search,current-dir-files"
+  echo "CTRL,V,zsh Search Variables,search,variables"
+  echo "ALT,C,zsh CD into selected directory,navigation,cd-selected"
 }
 
 # Parse and format keybindings

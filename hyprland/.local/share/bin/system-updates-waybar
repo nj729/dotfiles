@@ -11,10 +11,8 @@ ICON_UP=""
 get_updates() {
   PAC=$(yay -Qu 2>/dev/null | wc -l)
 
-  # AUR: yay or yay
+  # AUR: yay
   if command -v yay &>/dev/null; then
-    AUR=$(yay -Qua 2>/dev/null | wc -l)
-  elif command -v yay &>/dev/null; then
     AUR=$(yay -Qua 2>/dev/null | wc -l)
   else
     AUR=0
