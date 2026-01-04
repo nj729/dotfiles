@@ -44,6 +44,12 @@ if command -v starship &> /dev/null; then
   eval "$(starship init zsh)"
 fi
 
+# tmux
+if [ -z "$TMUX" ]; then
+    # Attach to an existing session named 'default' or create a new one
+    tmux attach-session -t default || tmux new-session -s default
+fi
+
 # Load and initialise completion system
 autoload -Uz compinit
 setopt PROMPT_SUBST
