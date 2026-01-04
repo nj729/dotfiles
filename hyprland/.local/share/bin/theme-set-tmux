@@ -16,7 +16,7 @@ THIN_RIGHT_SEP="#(printf '\ue0bb')" # Thin diagonal right separator
 THIN_VERTICAL_SEP="#(printf '\u23fd')"
 
 # ── base bar ─────────────────────────────────────────
-tmux set -g status-style "bg=$black,fg=$fg"
+tmux set -g status-style "bg=default,fg=$fg"
 
 # Status bar left (session name)
 tmux set-option -g status-left "#[bg=${blue},fg=${black},bold] #S #[fg=${blue},bg=default]${TRIANGLE_CLOSE}"
